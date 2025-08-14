@@ -30,7 +30,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const htmlInjectionIdInput = document.getElementById("html-injection-id");
   const targetSelectorInput = document.getElementById("target-selector");
   const htmlCodeInput = document.getElementById("html-code");
-  const previewHtmlBtn = document.getElementById("preview-html-btn");
   const previewContainer = document.getElementById("html-preview-container");
   const previewBox = document.getElementById("html-preview-box");
   const saveHtmlBtn = document.getElementById("save-html-injection-btn");
@@ -107,22 +106,22 @@ document.addEventListener("DOMContentLoaded", () => {
       const item = document.createElement("div");
       item.className = "html-injection-item";
       item.innerHTML = `
-                <div class="item-content">
-                    <strong class="item-id">${escapeHTML(injection.id)}</strong>
-                    <div class="item-details">
-                        <span class="item-selector-display" title="${
-                          escapeHTML(injection.querySelector) || "<body>"
-                        }">${
+              <div class="item-content">
+                  <strong class="item-id">${escapeHTML(injection.id)}</strong>
+                  <div class="item-details">
+                      <span class="item-selector-display" title="${
+                        escapeHTML(injection.querySelector) || "<body>"
+                      }">${
         escapeHTML(injection.querySelector) || "&lt;body&gt;"
       }</span>
-                        <span>${injection.injectionType}</span>
-                    </div>
-                </div>
-                <div class="item-actions">
-                    <button type="button" class="edit-html-btn" data-index="${index}">수정</button>
-                    <button type="button" class="delete-html-btn" data-index="${index}">삭제</button>
-                </div>
-            `;
+                      <span>${injection.injectionType}</span>
+                  </div>
+              </div>
+              <div class="item-actions">
+                  <button type="button" class="edit-html-btn" data-index="${index}">수정</button>
+                  <button type="button" class="delete-html-btn" data-index="${index}">삭제</button>
+              </div>
+          `;
       htmlInjectionsList.appendChild(item);
     });
   };
@@ -142,30 +141,30 @@ document.addEventListener("DOMContentLoaded", () => {
       item.className = `override-item ${override.enabled ? "" : "disabled"}`;
       const htmlCount = override.htmlInjections?.length || 0;
       item.innerHTML = `
-                <div class="item-content">
-                    <strong class="item-url">${escapeHTML(
-                      override.urlPattern
-                    )}</strong>
-                    <div class="item-details">
-                        ${override.jsCode ? "<span>JS</span>" : ""}
-                        ${
-                          htmlCount > 0
-                            ? `<span>HTML &times;${htmlCount}</span>`
-                            : ""
-                        }
-                    </div>
-                </div>
-                <div class="item-actions">
-                    <label class="switch">
-                        <input type="checkbox" class="enable-switch" data-index="${index}" ${
+              <div class="item-content">
+                  <strong class="item-url">${escapeHTML(
+                    override.urlPattern
+                  )}</strong>
+                  <div class="item-details">
+                      ${override.jsCode ? "<span>JS</span>" : ""}
+                      ${
+                        htmlCount > 0
+                          ? `<span>HTML &times;${htmlCount}</span>`
+                          : ""
+                      }
+                  </div>
+              </div>
+              <div class="item-actions">
+                  <label class="switch">
+                      <input type="checkbox" class="enable-switch" data-index="${index}" ${
         override.enabled ? "checked" : ""
       }>
-                        <span class="slider"></span>
-                    </label>
-                    <button class="edit-rule-btn" data-index="${index}">수정</button>
-                    <button class="delete-rule-btn" data-index="${index}">삭제</button>
-                </div>
-            `;
+                      <span class="slider"></span>
+                  </label>
+                  <button class="edit-rule-btn" data-index="${index}">수정</button>
+                  <button class="delete-rule-btn" data-index="${index}">삭제</button>
+              </div>
+          `;
       overridesList.appendChild(item);
     });
   };
@@ -176,16 +175,16 @@ document.addEventListener("DOMContentLoaded", () => {
   addHtmlInjectionBtn.addEventListener("click", () => openHtmlModal());
   cancelHtmlBtn.addEventListener("click", closeHtmlModal);
 
-  // HTML 미리보기 버튼
-  previewHtmlBtn.addEventListener("click", () => {
+  // 실시간 HTML 미리보기
+  htmlCodeInput.addEventListener("input", () => {
     const htmlContent = htmlCodeInput.value;
     if (htmlContent.trim()) {
       previewBox.innerHTML = htmlContent;
+      previewContainer.style.display = "block";
     } else {
-      previewBox.innerHTML =
-        '<p class="empty-list" style="padding: 20px 0;">미리보기할 HTML 코드가 없습니다.</p>';
+      previewBox.innerHTML = "";
+      previewContainer.style.display = "none";
     }
-    previewContainer.style.display = "block";
   });
 
   // 전체 규칙 저장

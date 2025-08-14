@@ -285,14 +285,10 @@ fieldset {
 
 .modal-actions {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
   gap: 12px;
   margin-top: 24px;
-}
-.modal-actions-right {
-  display: flex;
-  gap: 12px;
 }
 
 #html-preview-container {
