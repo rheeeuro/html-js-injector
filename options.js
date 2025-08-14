@@ -1,15 +1,15 @@
 // options.js
 
 document.addEventListener("DOMContentLoaded", () => {
-  // 페이지 요소
+  // Page elements
   const mainPage = document.getElementById("main-page");
   const editorPage = document.getElementById("rule-editor-page");
   const overridesList = document.getElementById("overrides-list");
 
-  // 메인 페이지 버튼
+  // Main page buttons
   const addNewRuleBtn = document.getElementById("add-new-rule-btn");
 
-  // 규칙 편집 페이지 요소
+  // Rule editor page elements
   const editorTitle = document.getElementById("editor-title");
   const ruleIndexInput = document.getElementById("rule-index");
   const urlPatternInput = document.getElementById("url-pattern");
@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const saveRuleBtn = document.getElementById("save-rule-btn");
   const cancelEditBtn = document.getElementById("cancel-edit-btn");
 
-  // HTML 주입 모달 요소
+  // HTML injection modal elements
   const htmlModal = document.getElementById("html-injection-modal");
   const htmlModalTitle = document.getElementById("html-modal-title");
   const htmlInjectionForm = document.getElementById("html-injection-form");
@@ -35,9 +35,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const saveHtmlBtn = document.getElementById("save-html-injection-btn");
   const cancelHtmlBtn = document.getElementById("cancel-html-modal-btn");
 
-  let currentHtmlInjections = []; // 규칙 편집 시 HTML 주입 목록 임시 저장
+  let currentHtmlInjections = []; // Temporary storage for HTML injection list when editing rules
 
-  // --- 페이지 전환 ---
+  // --- Page Switching ---
   const showMainPage = () => {
     editorPage.style.display = "none";
     mainPage.style.display = "block";
@@ -49,15 +49,15 @@ document.addEventListener("DOMContentLoaded", () => {
     currentHtmlInjections = rule ? [...(rule.htmlInjections || [])] : [];
 
     if (rule) {
-      editorTitle.textContent = "규칙 수정";
+      editorTitle.textContent = "Edit Rule";
       urlPatternInput.value = rule.urlPattern || "";
       jsCodeInput.value = rule.jsCode || "";
       ruleEnabledSwitch.checked = rule.enabled;
     } else {
-      editorTitle.textContent = "새 규칙 추가";
+      editorTitle.textContent = "Add New Rule";
       urlPatternInput.value = "";
       jsCodeInput.value = "";
-      ruleEnabledSwitch.checked = true; // 새 규칙은 기본적으로 활성화
+      ruleEnabledSwitch.checked = true; // New rules are enabled by default
     }
 
     renderHtmlInjectionsList();
@@ -65,14 +65,14 @@ document.addEventListener("DOMContentLoaded", () => {
     editorPage.style.display = "block";
   };
 
-  // --- HTML 주입 모달 제어 ---
+  // --- HTML Injection Modal Control ---
   const openHtmlModal = (injection = null, index = -1) => {
     htmlInjectionForm.reset();
     htmlInjectionIndexInput.value = index;
-    previewContainer.style.display = "none"; // 미리보기 숨기기
+    previewContainer.style.display = "none"; // Hide preview
 
     if (injection) {
-      htmlModalTitle.textContent = "HTML 주입 규칙 수정";
+      htmlModalTitle.textContent = "Edit HTML Injection Rule";
       htmlInjectionIdInput.value = injection.id || "";
       targetSelectorInput.value = injection.querySelector || "";
       document.querySelector(
@@ -82,7 +82,7 @@ document.addEventListener("DOMContentLoaded", () => {
       ).checked = true;
       htmlCodeInput.value = injection.htmlCode || "";
     } else {
-      htmlModalTitle.textContent = "HTML 주입 규칙 추가";
+      htmlModalTitle.textContent = "Add HTML Injection Rule";
       document.querySelector(
         'input[name="injectionType"][value="prepend"]'
       ).checked = true;
@@ -94,12 +94,12 @@ document.addEventListener("DOMContentLoaded", () => {
     htmlModal.style.display = "none";
   };
 
-  // --- 렌더링 함수 ---
+  // --- Rendering Functions ---
   const renderHtmlInjectionsList = () => {
     htmlInjectionsList.innerHTML = "";
     if (currentHtmlInjections.length === 0) {
       htmlInjectionsList.innerHTML =
-        '<p class="empty-list">HTML 주입 규칙이 없습니다.</p>';
+        '<p class="empty-list">No HTML injection rules.</p>';
       return;
     }
     currentHtmlInjections.forEach((injection, index) => {
@@ -118,8 +118,8 @@ document.addEventListener("DOMContentLoaded", () => {
                   </div>
               </div>
               <div class="item-actions">
-                  <button type="button" class="edit-html-btn" data-index="${index}">수정</button>
-                  <button type="button" class="delete-html-btn" data-index="${index}">삭제</button>
+                  <button type="button" class="edit-html-btn" data-index="${index}">Edit</button>
+                  <button type="button" class="delete-html-btn" data-index="${index}">Delete</button>
               </div>
           `;
       htmlInjectionsList.appendChild(item);
@@ -132,7 +132,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (overrides.length === 0) {
       overridesList.innerHTML =
-        '<p class="empty-list">저장된 규칙이 없습니다. "새 규칙 추가" 버튼을 눌러 시작하세요.</p>';
+        '<p class="empty-list">No saved rules. Click "Add New Rule" button to start.</p>';
       return;
     }
 
@@ -161,21 +161,21 @@ document.addEventListener("DOMContentLoaded", () => {
       }>
                       <span class="slider"></span>
                   </label>
-                  <button class="edit-rule-btn" data-index="${index}">수정</button>
-                  <button class="delete-rule-btn" data-index="${index}">삭제</button>
+                  <button class="edit-rule-btn" data-index="${index}">Edit</button>
+                  <button class="delete-rule-btn" data-index="${index}">Delete</button>
               </div>
           `;
       overridesList.appendChild(item);
     });
   };
 
-  // --- 이벤트 리스너 ---
+  // --- Event Listeners ---
   addNewRuleBtn.addEventListener("click", () => showEditorPage());
   cancelEditBtn.addEventListener("click", showMainPage);
   addHtmlInjectionBtn.addEventListener("click", () => openHtmlModal());
   cancelHtmlBtn.addEventListener("click", closeHtmlModal);
 
-  // 실시간 HTML 미리보기
+  // Real-time HTML preview
   htmlCodeInput.addEventListener("input", () => {
     const htmlContent = htmlCodeInput.value;
     if (htmlContent.trim()) {
@@ -187,7 +187,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // 전체 규칙 저장
+  // Save All Rules
   saveRuleBtn.addEventListener("click", async () => {
     const index = parseInt(ruleIndexInput.value, 10);
 
@@ -202,7 +202,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     if (!newRule.urlPattern) {
-      alert("URL 패턴을 입력해야 합니다.");
+      alert("URL pattern is required.");
       return;
     }
 
@@ -216,7 +216,7 @@ document.addEventListener("DOMContentLoaded", () => {
     showMainPage();
   });
 
-  // HTML 주입 규칙 하나를 임시 저장
+  // Temporarily save one HTML injection rule
   htmlInjectionForm.addEventListener("submit", (e) => {
     e.preventDefault();
     const index = parseInt(htmlInjectionIndexInput.value, 10);
@@ -230,11 +230,11 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     if (!newInjection.id) {
-      alert("주입 규칙 ID를 입력해야 합니다.");
+      alert("Injection rule ID is required.");
       return;
     }
     if (!newInjection.htmlCode) {
-      alert("HTML 코드를 입력해야 합니다.");
+      alert("HTML code is required.");
       return;
     }
 
@@ -247,7 +247,7 @@ document.addEventListener("DOMContentLoaded", () => {
     closeHtmlModal();
   });
 
-  // 규칙 목록 이벤트 위임
+  // Rule list event delegation
   overridesList.addEventListener("click", async (e) => {
     const index = e.target.dataset.index;
     if (index === undefined) return;
@@ -259,7 +259,7 @@ document.addEventListener("DOMContentLoaded", () => {
     } else if (e.target.classList.contains("delete-rule-btn")) {
       if (
         confirm(
-          `'${overrides[index].urlPattern}' 규칙을 정말 삭제하시겠습니까?`
+          `Are you sure you want to delete the rule '${overrides[index].urlPattern}'?`
         )
       ) {
         overrides.splice(index, 1);
@@ -275,7 +275,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // HTML 주입 목록 이벤트 위임
+  // HTML injection list event delegation
   htmlInjectionsList.addEventListener("click", (e) => {
     const index = e.target.dataset.index;
     if (index === undefined) return;
@@ -295,13 +295,13 @@ document.addEventListener("DOMContentLoaded", () => {
     return p.innerHTML;
   }
 
-  // <script> 태그에서 순수 JS 코드만 추출하는 함수
+  // Function to extract pure JS code from <script> tags
   function extractJsFromHtml(rawInput) {
     const scriptTagRegex = /<script[^>]*>([\s\S]*?)<\/script>/i;
     const match = rawInput.match(scriptTagRegex);
     return match ? match[1].trim() : rawInput;
   }
 
-  // 초기화
+  // Initialization
   showMainPage();
 });

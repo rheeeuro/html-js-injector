@@ -1,26 +1,26 @@
 # HTML JS Injector
 
-## 사용 방법
+## How to Use
 
-### Chrome 확장프로그램 열기:
+### Open Chrome Extensions:
 
-Google Chrome을 엽니다.
-주소 표시줄에 `chrome://extensions`를 입력하고 Enter 키를 누르거나 오른쪽 상단 모서리에 있는 세 점 메뉴 아이콘을 클릭하여 "`확장프로그램`" 위에 마우스를 올린 다음 "`확장프로그램 관리`"를 선택합니다
+Open Google Chrome.
+Type `chrome://extensions` in the address bar and press Enter, or click the three-dot menu icon in the top right corner, hover over "`Extensions`", and select "`Manage Extensions`."
 
-### 개발자 모드 활성화:
+### Enable Developer Mode:
 
-확장 페이지에서 보통 오른쪽 상단 모서리에 있는 "`개발자 모드`" 토글 스위치를 찾습니다.
-토글을 클릭하여 개발자 모드를 켭니다. 이렇게 하면 "`압축해제된 확장 프로그램 로드`"를 포함한 추가 옵션이 표시됩니다
+On the Extensions page, locate the "`Developer mode`" toggle switch, usually in the top right corner.
+Click the toggle to turn on Developer Mode. This will reveal additional options, including "`Load unpacked.`"
 
-### 확장 프로그램 로드:
+### Load the Extension:
 
-개발자 모드를 활성화한 후 나타나는 "`압축해제된 확장 프로그램 로드`" 버튼을 클릭합니다.
-파일 브라우저 창이 열립니다. 확장자 파일이 있는 로컬 폴더로 이동합니다(이 폴더에는 manifest.json 파일 및 기타 확장자 자산이 포함되어야 합니다).
-폴더를 선택하고 "폴더 선택" 또는 "열기"를 클릭합니다
+Click the "`Load unpacked`" button that appears after enabling Developer Mode.
+A file browser window will open. Navigate to the local folder where your extension files are located (this folder should contain your manifest.json file and other extension assets).
+Select the folder and click "Select Folder" or "Open."
 
-### 확장 프로그램 관리 및 사용:
+### Manage and Use the Extension:
 
-확장 코드에 오류가 없으면 이제 로드되어 `chrome://extensions`에 표시됩니다.
-토글 스위치를 사용하여 확장 기능을 활성화하거나 비활성화할 수 있습니다.
-확장 프로그램에 사용자 인터페이스나 기능이 도구 모음에 표시되는 경우 일반적으로 해당 아이콘이 주소 표시줄의 오른쪽에 표시됩니다. 원하는 경우 도구 모음에 고정하여 더 쉽게 액세스할 수 있습니다.
-크롬을 재시작하면 개발자 모드 확장에 대한 알림이 표시될 수 있습니다. 로컬 확장 기능을 계속 활성화하려면 "유지"를 클릭하세요
+If there are no errors in your extension code, it should now be loaded and appear on the `chrome://extensions` page.
+You can use the toggle switch to enable or disable the extension.
+If your extension has a user interface or functionality that appears in the toolbar, its icon will usually be displayed to the right of the address bar. You can pin it to the toolbar for easier access if desired.
+When you restart Chrome, you may see a notification about developer mode extensions. Click "Keep" to keep your local extension enabled.

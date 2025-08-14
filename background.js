@@ -1,7 +1,7 @@
 // background.js
 
 chrome.runtime.onInstalled.addListener(() => {
-  console.log("코드 재정의 관리자 확장 프로그램이 설치/업데이트되었습니다.");
+  console.log("Code Override Manager extension installed/updated.");
 });
 
 chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
@@ -39,7 +39,7 @@ chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
 
 function injectCodeAndHtml(override) {
   const executeInjection = () => {
-    // 1. 여러 개의 HTML 코드 주입 (있을 경우)
+    // 1. Multiple HTML code injections (if any)
     if (override.htmlInjections && override.htmlInjections.length > 0) {
       override.htmlInjections.forEach((injection, index) => {
         if (!injection.htmlCode || !injection.injectionType) return;
@@ -87,7 +87,7 @@ function injectCodeAndHtml(override) {
       });
     }
 
-    // 2. JavaScript 코드 주입 (HTML 주입 후에 실행)
+    // 2. JavaScript code injection (executed after HTML injection)
     if (override.jsCode) {
       try {
         const script = document.createElement("script");
