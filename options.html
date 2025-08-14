@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>코드 재정의 설정</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <!-- ===== 메인 페이지: 규칙 목록 ===== -->
+    <div id="main-page">
+      <header>
+        <h1>사이트별 코드 재정의 관리</h1>
+        <button id="add-new-rule-btn" class="primary-btn">새 규칙 추가</button>
+      </header>
+      <main>
+        <div id="overrides-list-container">
+          <h2>저장된 규칙 목록</h2>
+          <div id="overrides-list">
+            <!-- JS로 생성된 규칙 목록이 여기에 표시됩니다. -->
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- ===== 규칙 편집 페이지 ===== -->
+    <div id="rule-editor-page" class="page" style="display: none">
+      <header>
+        <h1 id="editor-title">규칙 편집</h1>
+        <div class="header-actions">
+          <button id="cancel-edit-btn" class="secondary-btn">취소</button>
+          <button id="save-rule-btn" class="primary-btn">규칙 저장</button>
+        </div>
+      </header>
+      <main>
+        <input type="hidden" id="rule-index" />
+        <div class="form-section">
+          <div class="form-group-row">
+            <div class="form-group">
+              <label for="url-pattern">URL 패턴 (정규식)</label>
+              <input
+                type="text"
+                id="url-pattern"
+                placeholder="예: https://github.com/.*"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label>활성화 상태</label>
+              <label class="switch">
+                <input type="checkbox" id="rule-enabled-switch" />
+                <span class="slider"></span>
+              </label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="js-code">JavaScript 코드</label>
+            <textarea
+              id="js-code"
+              rows="10"
+              placeholder="실행할 JS 코드를 입력하세요."
+            ></textarea>
+            <p class="form-helper-text">
+              순수 JavaScript 코드 또는 &lt;script&gt; 태그 전체를 붙여넣을 수
+              있습니다.
+            </p>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <div class="section-header">
+            <h2>HTML 주입 규칙</h2>
+            <button
+              type="button"
+              id="add-html-injection-btn"
+              class="secondary-btn small-btn"
+            >
+              HTML 주입 추가
+            </button>
+          </div>
+          <div id="html-injections-list">
+            <!-- JS로 생성된 HTML 주입 규칙 목록이 여기에 표시됩니다. -->
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- ===== HTML 주입 규칙 추가/수정 모달 ===== -->
+    <div id="html-injection-modal" class="modal-overlay" style="display: none">
+      <div class="modal-content">
+        <form id="html-injection-form">
+          <input type="hidden" id="html-injection-index" />
+          <h2 id="html-modal-title">HTML 주입 규칙 추가</h2>
+
+          <div class="form-group">
+            <label for="html-injection-id">주입 규칙 ID</label>
+            <input
+              type="text"
+              id="html-injection-id"
+              placeholder="식별을 위한 ID (예: my-custom-header)"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="target-selector"
+              >대상 요소 선택자 (비워두면 &lt;body&gt;에 적용)</label
+            >
+            <input
+              type="text"
+              id="target-selector"
+              placeholder="예: #main .article > p:first-child"
+            />
+          </div>
+
+          <fieldset class="form-group">
+            <legend>삽입 방식</legend>
+            <div class="radio-group">
+              <label
+                ><input type="radio" name="injectionType" value="innerHTML" />
+                내용 변경 (innerHTML)</label
+              >
+              <label
+                ><input
+                  type="radio"
+                  name="injectionType"
+                  value="prepend"
+                  checked
+                />
+                맨 앞에 추가 (prepend)</label
+              >
+              <label
+                ><input type="radio" name="injectionType" value="append" /> 맨
+                뒤에 추가 (append)</label
+              >
+            </div>
+          </fieldset>
+
+          <div class="form-group">
+            <label for="html-code">HTML 코드</label>
+            <textarea
+              id="html-code"
+              rows="8"
+              placeholder="삽입할 HTML 코드를 입력하세요."
+            ></textarea>
+          </div>
+
+          <div id="html-preview-container" style="display: none">
+            <label>미리보기</label>
+            <div id="html-preview-box"></div>
+          </div>
+
+          <div class="modal-actions">
+            <button type="button" id="preview-html-btn" class="secondary-btn">
+              미리보기
+            </button>
+            <div class="modal-actions-right">
+              <button
+                type="button"
+                id="cancel-html-modal-btn"
+                class="secondary-btn"
+              >
+                취소
+              </button>
+              <button
+                type="submit"
+                id="save-html-injection-btn"
+                class="primary-btn"
+              >
+                저장
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script src="options.js"></script>
+  </body>
+</html>

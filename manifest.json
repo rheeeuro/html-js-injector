@@ -1,0 +1,25 @@
+{
+  "manifest_version": 3,
+  "name": "HTML JS Injector",
+  "author": "Rhee Euro",
+  "version": "1.0",
+  "description": "HTML JS Injector",
+  "permissions": ["storage", "scripting", "tabs", "declarativeNetRequest"],
+  "host_permissions": ["<all_urls>"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "options_page": "options.html",
+  "action": {
+    "default_title": "코드 재정의 관리자 설정 열기"
+  },
+  "declarative_net_request": {
+    "rule_resources": [
+      {
+        "id": "ruleset_1",
+        "enabled": true,
+        "path": "rules.json"
+      }
+    ]
+  }
+}
